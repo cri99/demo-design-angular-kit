@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AutoCompleteItem } from 'design-angular-kit';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  
+
   reactiveFormGroup!: FormGroup;
   constructor(private _formBuilder: FormBuilder) {}
   ngOnInit(): void {
@@ -26,5 +27,37 @@ export class AppComponent implements OnInit {
 
   onSubmit() {
     console.log("Valore della form: ", this.reactiveFormGroup.value)
+  
   }
+
+
+  get autoCompleteSchoolsData(): AutoCompleteItem[] {
+    return this._autoCompleteSchoolsData;
+  }
+  set autoCompleteSchoolsData(value: AutoCompleteItem[]) {
+    this._autoCompleteSchoolsData = value;
+  }
+  private _autoCompleteSchoolsData: AutoCompleteItem[] = [
+    {
+      value: 'Leonardo Da Vinci',
+      icon: 'it-pa',
+      label: 'Istituto Tenico'
+    }, 
+    {
+      value: 'Galileo Galilei',
+      icon: 'it-pa',
+      label: 'Liceo Scientifico'
+    },
+    {
+      value: 'Alessandro Manzoni',
+      icon: 'it-pa',
+      label: 'Scuola Media'
+    },
+    {
+      value: 'Antonio Meucci',
+      icon: 'it-pa',
+      label: 'Istituto Tecnico'
+    }
+  ];
+
 }

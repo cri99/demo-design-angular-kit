@@ -19,6 +19,8 @@
     "@angular/platform-browser": "^14.2.10",
     "@angular/platform-browser-dynamic": "^14.2.10",
     "@angular/router": "^14.2.10",
+    "bootstrap-italia": "2.0.2",
+    "design-angular-kit": "^1.0.0-1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

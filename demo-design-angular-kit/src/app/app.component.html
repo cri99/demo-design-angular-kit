@@ -1,22 +1,48 @@
-<h2>Reactive driven form</h2>
+<div class="container">
+    <h2>Reactive driven form</h2>
 
-<form [formGroup]="reactiveFormGroup" (submit)="onSubmit()">
-    
-    <div>Nome completo: <input type="text" formControlName="fullname"/></div>
-    <div>E-mail: <input type="text" formControlName="email"/></div>
-    <div>Età: <input type="number" formControlName="age"/></div>    
-    
-    <p>Sesso:</p>
-    <input type="radio" id="sexM" name="sex" value="M" formControlName="sex">
-    <label for="sexM">Maschio</label><br>
-    <input type="radio" id="sexF" name="sex" value="F" formControlName="sex">
-    <label for="sexF">Femmina</label><br>
+    <form [formGroup]="reactiveFormGroup" (submit)="onSubmit()" class = "student-form">
+        <div class="row">
+            <div class="col-6">
+                <it-input formControlName="fullname" placeholder="Mario Rossi..." icon="it-user" label="Nome completo"></it-input>
+            </div>
+            <div class="col-6">
+                <it-input type="email" formControlName="email" label="E-mail"></it-input> 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                    <h5>Sesso</h5>
+                    <it-radio-group formControlName="sex">
+                        <it-radio-button id="sexM" value="M" label="Maschio"></it-radio-button>
+                        <it-radio-button id="sexF" value="F" label="Femmina"></it-radio-button>
+                    </it-radio-group>
+            </div>
+            <div class="col-6">
+                <it-input type="search" formControlName="school" label="Scuola" [autoCompleteData]="autoCompleteSchoolsData"></it-input>
+                <it-input type="number" formControlName="age" label="Età"></it-input>
+            </div>
+        </div>
 
 
-    <div>Scuola: <input type="text" formControlName="school"/></div>
-    <div>Password: <input type="password" formControlName="password"/></div>
-    <div>Conferma: <input type="password" formControlName="confirmPassword"/></div>
-    <div><input type="checkbox" formControlName="acceptPrivacyPolicy"/>Accetto la privacy policy</div>
-    
-    <button type="submit" [disabled]="reactiveFormGroup.invalid">INVIA</button>
-</form>
+        
+        <div class="row">
+            <it-input type="password" formControlName="password" label="Password" [enablePasswordStrengthMeter]="true"></it-input>
+            <it-input type="password" formControlName="confirmPassword" label="Conferma password"></it-input>
+        </div>
+
+        <div class="row">
+            <it-checkbox formControlName="acceptPrivacyPolicy" label="Accetto la privacy policy"></it-checkbox>
+        </div>
+
+        <div class="row mt-4">
+            <button itButton type="submit" [disabled]="reactiveFormGroup.invalid">INVIA</button>
+        </div>
+    </form>
+
+</div>
+
+<pre>
+    {{reactiveFormGroup.value | json}}
+</pre>
