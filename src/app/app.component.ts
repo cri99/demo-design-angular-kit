@@ -11,6 +11,9 @@ import { AutoCompleteItem } from 'design-angular-kit';
 export class AppComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) { }
 
+  reactiveFormGroup!: FormGroup;
+
+  
   get autoCompleteSchoolsData(): AutoCompleteItem[] {
     return this._autoCompleteSchoolsData;
   }
@@ -18,7 +21,6 @@ export class AppComponent implements OnInit {
     this._autoCompleteSchoolsData = value;
   }
 
-  reactiveFormGroup!: FormGroup;
   private _autoCompleteSchoolsData: AutoCompleteItem[] = [
     {
       value: 'Leonardo Da Vinci',
@@ -42,13 +44,12 @@ export class AppComponent implements OnInit {
     }
   ];
 
-
   ngOnInit(): void {
     this.reactiveFormGroup = this._formBuilder.group({
       fullname: ['', Validators.required],
       email: ['test+123@test.it', [Validators.required, Validators.email]],
       age: [12, [Validators.min(10), Validators.max(100)]],
-      sex: ['M', Validators.required],
+      gender: ['M', Validators.required],
       school: ['', Validators.required],
       acceptPrivacyPolicy: [false, Validators.requiredTrue],
       password: ['', Validators.required],
