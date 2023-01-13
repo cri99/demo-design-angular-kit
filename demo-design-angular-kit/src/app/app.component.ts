@@ -9,27 +9,7 @@ import { AutoCompleteItem } from 'design-angular-kit';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
-  reactiveFormGroup!: FormGroup;
-  constructor(private _formBuilder: FormBuilder) {}
-  ngOnInit(): void {
-    this.reactiveFormGroup = this._formBuilder.group({
-      fullname: ['', Validators.required],
-      email: ['test+123@test.it', [Validators.required, Validators.email]],
-      age: [12, [Validators.min(10), Validators.max(100)]],
-      sex: ['M', Validators.required],
-      school: ['', Validators.required],
-      acceptPrivacyPolicy: [false, Validators.requiredTrue],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-    })
-  }
-
-  onSubmit() {
-    console.log("Valore della form: ", this.reactiveFormGroup.value)
-  
-  }
-
+  constructor(private _formBuilder: FormBuilder) { }
 
   get autoCompleteSchoolsData(): AutoCompleteItem[] {
     return this._autoCompleteSchoolsData;
@@ -37,12 +17,14 @@ export class AppComponent implements OnInit {
   set autoCompleteSchoolsData(value: AutoCompleteItem[]) {
     this._autoCompleteSchoolsData = value;
   }
+
+  reactiveFormGroup!: FormGroup;
   private _autoCompleteSchoolsData: AutoCompleteItem[] = [
     {
       value: 'Leonardo Da Vinci',
       icon: 'it-pa',
       label: 'Istituto Tenico'
-    }, 
+    },
     {
       value: 'Galileo Galilei',
       icon: 'it-pa',
@@ -59,5 +41,23 @@ export class AppComponent implements OnInit {
       label: 'Istituto Tecnico'
     }
   ];
+
+
+  ngOnInit(): void {
+    this.reactiveFormGroup = this._formBuilder.group({
+      fullname: ['', Validators.required],
+      email: ['test+123@test.it', [Validators.required, Validators.email]],
+      age: [12, [Validators.min(10), Validators.max(100)]],
+      sex: ['M', Validators.required],
+      school: ['', Validators.required],
+      acceptPrivacyPolicy: [false, Validators.requiredTrue],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    });
+  }
+
+  onSubmit(): void {
+    console.log('Valore della form: ', this.reactiveFormGroup.value);
+  }
 
 }
