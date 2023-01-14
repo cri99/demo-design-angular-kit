@@ -32,6 +32,11 @@
                 "glob": "**/*",
                 "input": "./node_modules/bootstrap-italia",
                 "output": "bootstrap-italia"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/design-angular-kit/assets/i18n",
+                "output": "/bootstrap-italia/i18n/"
               }
             ],
             "styles": [

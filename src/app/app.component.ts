@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { AutoCompleteItem } from 'design-angular-kit';
+// import { AutoCompleteItem } from 'design-angular-kit';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   reactiveFormGroup!: FormGroup;
 
-  
+  /*
   get autoCompleteSchoolsData(): AutoCompleteItem[] {
     return this._autoCompleteSchoolsData;
   }
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
       label: 'Istituto Tecnico'
     }
   ];
-
+*/
   ngOnInit(): void {
     this.reactiveFormGroup = this._formBuilder.group({
       fullname: ['', Validators.required],
