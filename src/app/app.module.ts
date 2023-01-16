@@ -1,25 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DesignAngularKitModule } from 'design-angular-kit';
-import { TranslateModule } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import {DesignAngularKitModule} from "design-angular-kit";
+import {TranslateModule} from "@ngx-translate/core";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    FormsModule,
     BrowserModule,
     AppRoutingModule,
     TranslateModule.forRoot(),
-    DesignAngularKitModule
+    DesignAngularKitModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
