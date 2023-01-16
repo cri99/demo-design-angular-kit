@@ -8,10 +8,24 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  constructor(private _formBuilder: FormBuilder) { }
+export class AppComponent  {
 
-  reactiveFormGroup!: FormGroup;
+  reactiveFormGroup: FormGroup;
+
+  constructor(private _formBuilder: FormBuilder) {
+    this.reactiveFormGroup = this._formBuilder.group({
+      fullName: ['', Validators.required],
+      email: ['test+123@test.it', [Validators.required, Validators.email]],
+      age: [12, [Validators.min(10), Validators.max(100)]],
+      gender: ['M', Validators.required],
+      school: ['', Validators.required],
+      acceptPrivacyPolicy: [false, Validators.requiredTrue],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    });
+  }
+
+
 
   /*
   get autoCompleteSchoolsData(): AutoCompleteItem[] {
@@ -44,18 +58,6 @@ export class AppComponent implements OnInit {
     }
   ];
 */
-  ngOnInit(): void {
-    this.reactiveFormGroup = this._formBuilder.group({
-      fullname: ['', Validators.required],
-      email: ['test+123@test.it', [Validators.required, Validators.email]],
-      age: [12, [Validators.min(10), Validators.max(100)]],
-      gender: ['M', Validators.required],
-      school: ['', Validators.required],
-      acceptPrivacyPolicy: [false, Validators.requiredTrue],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-    });
-  }
 
   onSubmit(): void {
     console.log('Valore della form: ', this.reactiveFormGroup.value);

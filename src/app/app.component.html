@@ -1,39 +1,39 @@
 <div class="container">
-    <h2>Reactive driven form</h2>
+    <h2>{{'Reactive driven form' | translate}}</h2>
 
     <form [formGroup]="reactiveFormGroup" (submit)="onSubmit()" class = "student-form">
         <div class="row">
             <div class="col-6">
-                <it-input formControlName="fullname" placeholder="Mario Rossi..." icon="it-user" label="Nome completo"></it-input>
+                <it-input id="fullName" formControlName="fullName" placeholder="Mario Rossi..." label="Nome completo"></it-input>
             </div>
             <div class="col-6">
-                <it-input type="email" formControlName="email" label="E-mail"></it-input> 
+                <it-input id="email" type="email" formControlName="email" label="E-mail"></it-input>
             </div>
         </div>
 
         <div class="row">
             <div class="col-6">
                     <h5>Sesso</h5>
-                    <it-radio-group formControlName="gender">
-                        <it-radio-button id="genderM" value="M" label="Maschio"></it-radio-button>
-                        <it-radio-button id="genderF" value="F" label="Femmina"></it-radio-button>
-                    </it-radio-group>
+
+                    <it-radio-button id="genderM" formControlName="gender" value="M" label="Maschio"></it-radio-button>
+                    <it-radio-button id="genderF" formControlName="gender" value="F" label="Femmina"></it-radio-button>
+
             </div>
             <div class="col-6">
              <!--  <it-input type="search" formControlName="school" label="Scuola" [autoCompleteData]="autoCompleteSchoolsData"></it-input> -->
-                <it-input type="number" formControlName="age" label="Età"></it-input>
+                <it-input id="age" type="number" formControlName="age" label="Età"></it-input>
             </div>
         </div>
 
 
-        
+
         <div class="row">
             <!-- <it-input type="password" formControlName="password" label="Password" [enablePasswordStrengthMeter]="true"></it-input> -->
-            <it-input type="password" formControlName="confirmPassword" label="Conferma password"></it-input>
+            <it-password-input id="password" formControlName="confirmPassword" label="Conferma password"></it-password-input>
         </div>
 
         <div class="row">
-            <it-checkbox formControlName="acceptPrivacyPolicy" label="Accetto la privacy policy"></it-checkbox>
+            <it-checkbox id="acceptPrivacyPolicy" formControlName="acceptPrivacyPolicy" label="Accetto la privacy policy"></it-checkbox>
         </div>
 
         <div class="row mt-4">
