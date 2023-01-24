@@ -1,7 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ItValidators, SelectControlOption, UploadDragDropComponent, UploadFileListItem} from "design-angular-kit";
-import {delay, finalize, forkJoin, iif, interval, map, of, take, tap} from "rxjs";
+import {
+  AutoCompleteItem,
+  ItValidators,
+  SelectControlOption,
+  UploadDragDropComponent,
+  UploadFileListItem
+} from "design-angular-kit";
+import {delay, forkJoin, interval, map, take, tap} from "rxjs";
 
 
 @Component({
@@ -24,6 +30,30 @@ export class AppComponent {
     {value: 'Valore 5', text: 'Opzione 5'}
   ]
 
+  autoCompleteSchoolsData: Array<AutoCompleteItem> = [
+    {
+      value: 'Leonardo Da Vinci',
+      icon: 'pa',
+      label: 'Istituto Tenico'
+    },
+    {
+      value: 'Galileo Galilei',
+      icon: 'pa',
+      label: 'Liceo Scientifico'
+    },
+    {
+      value: 'Alessandro Manzoni',
+      icon: 'pa',
+      label: 'Scuola Media'
+    },
+    {
+      value: 'Antonio Meucci',
+      icon: 'pa',
+      label: 'Istituto Tecnico'
+    }
+  ];
+
+
   uploadedFileList: Array<UploadFileListItem> = [];
 
   @ViewChild('uploadDragDropComponent') uploadDragDropComponent!: UploadDragDropComponent;
@@ -35,7 +65,11 @@ export class AppComponent {
       // The min/max validators can be omitted as they have been indicated on the html side,
       // so the it-input component (type=number) automatically adds these validators if not present
       age: [null, Validators.required],
-      numericField: [null, [Validators.required, Validators.maxLength(5)]],
+
+      // Validate the numeric field with regex, show 'maxlength' error message (Show `invalidMessage` method inside `InputComponent`)
+      // Other example: ItValidators.customPattern(/^\s*-?[0-9]{1,5}\s*$/, {invalidRegex: true})
+      // Other example: Validators.pattern(/^\s*-?[0-9]{1,5}\s*$/)
+      numericField: [null, [Validators.required, ItValidators.customPattern(/^\s*-?[0-9]{1,5}\s*$/, {maxlength: {requiredLength: 5}})]],
 
       // The email validator can be omitted,
       // the it-input component (type=email) automatically add this validator if not present
@@ -44,10 +78,11 @@ export class AppComponent {
       defaultSelect: [null, Validators.required],
       date: [null, Validators.required],
       time: [null, Validators.required],
+      school: [null],
       isolatedCheckbox: [null, Validators.required],
       isolatedToggle: [null, Validators.required],
 
-      group2: [null, Validators.required],
+      group2: [null],
 
       // Checkbox2 is required only if Checkbox1 has no value
       checkbox1: [null],
@@ -55,17 +90,24 @@ export class AppComponent {
     });
 
     // Checkbox2 is required only if Checkbox1 has no value
+    const checkbox2Form = this.reactiveFormGroup.get('checkbox2');
     this.reactiveFormGroup.get('checkbox1')?.valueChanges.subscribe(() => {
-      this.reactiveFormGroup.get('checkbox2')?.updateValueAndValidity();
+      checkbox2Form?.updateValueAndValidity(); // Update checkbox2 validity when the condition is changed
+      checkbox2Form?.markAsTouched();
     });
   }
 
   onDragUploadStart(file: File): void {
-    interval(50).pipe( // Simulate upload of single file
+    interval(1000).pipe( // Simulate upload of single file
       take(100),
-      map(x => x + 1) // Start from 1, end 100
+      map(x => (x + 1) * 10) // Start from 1, end 100
     ).subscribe(progress => {
       this.uploadDragDropComponent.progress(progress);
+      if (progress >= 100) {
+        setTimeout(() => {
+          this.uploadDragDropComponent.reset();
+        }, 2000);
+      }
     });
   }
 
@@ -77,6 +119,30 @@ export class AppComponent {
     }));
 
     this.uploadedFileList = [...this.uploadedFileList, ...newFiles];
+    const uploadList$ = newFiles.map((fileItem, index) => {
+      fileItem.removable = false;
+
+      return interval(50).pipe( // Simulate upload of single file
+        take(100),
+        delay(index * 500),
+        map(x => x + 1), // Start from 1, end 100
+        tap(progress => {
+          fileItem.progress = progress;
+          if (progress >= 100 && newFiles.length > 1) { // Set error in second uploaded file
+            const item = newFiles[1];
+            item.progress = 0;
+            item.error = true;
+            item.removable = true;
+          }
+        })
+      );
+    });
+
+    forkJoin(uploadList$).subscribe();
+  }
+
+  onDeleteFileList(item: UploadFileListItem): void {
+    this.uploadedFileList = this.uploadedFileList.filter(i => i.id !== item.id);
   }
 
   onSubmit(): void {
@@ -87,24 +153,11 @@ export class AppComponent {
       return;
     }
 
-    const uploadList$ = this.uploadedFileList.map(fileItem => {
-      fileItem.removable = false;
-
-      return interval(50).pipe( // Simulate upload of single file
-        take(100),
-        map(x => x + 1), // Start from 1, end 100
-        tap(progress => {
-          fileItem.progress = progress;
-        })
-      )
-    });
-
     // Simulate send
     this.isLoadingSend = true;
-    iif(() => !!uploadList$.length, forkJoin(uploadList$), of(void 0)).pipe(
-      delay(2000),
-      finalize(() => this.isLoadingSend = false)
-    ).subscribe();
+    setTimeout(() => {
+      this.isLoadingSend = false
+    }, 5000);
   }
 
 }

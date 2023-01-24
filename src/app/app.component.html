@@ -1,10 +1,11 @@
 <div class="container mb-5 mt-5 pt-5">
   <form [formGroup]="reactiveFormGroup" (submit)="onSubmit()">
 
-    <div class="container-fluid px-0">
+    <div class="d-flex justify-content-between px-0">
       <h1>Form con validazione</h1>
-      <hr>
+      <it-language-switcher></it-language-switcher>
     </div>
+    <hr>
 
     <div class="container-fluid px-0 mt-5 mb-4">
       <h2>Campi input</h2>
@@ -48,11 +49,11 @@
     </div>
 
     <div class="row mb-4">
-      <div class="col-12 col-md-4">
-        <div class="select-wrapper">
-          <label>Autocomplete</label>
-          <!-- TODO: create autocomplete-->
-        </div>
+      <div class="col-12 col-md-4 pt-3">
+        <it-input id="autocomplete" type="search" formControlName="school"
+                  label="Istituto scolastico"
+                  placeholder="Testo da cercare"
+                  [autoCompleteData]="autoCompleteSchoolsData"></it-input>
       </div>
     </div>
 
@@ -87,7 +88,9 @@
         <fieldset id="checkgroup">
           <legend>Fieldset checkbox</legend>
           <it-checkbox id="checkbox-2" label="Checkbox 1" formControlName="checkbox1" inline="true"></it-checkbox>
-          <it-checkbox id="checkbox-3" label="Checkbox 2" formControlName="checkbox2" inline="true"></it-checkbox>
+
+          <!-- With `validationMode="true"` show the validation is invalid but also valid (green) -->
+          <it-checkbox id="checkbox-3" label="Checkbox 2" formControlName="checkbox2" inline="true" validationMode="true"></it-checkbox>
           <div>
             <small class="text-muted">L'obbligatorietà di Checkbox 2 dipende dal valore di Checkbox 1</small>
           </div>
@@ -106,7 +109,8 @@
       </div>
       <div class="col-12 col-md-6">
         <it-upload-file-list id="file-upload" [fileList]="uploadedFileList"
-                             (uploadFiles)="onUpdateFileList($event)"></it-upload-file-list>
+                             (uploadFiles)="onUpdateFileList($event)"
+                             (deleteItem)="onDeleteFileList($event)"></it-upload-file-list>
       </div>
     </div>
 
