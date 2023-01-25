@@ -1,0 +1,13 @@
+{
+  "validation-form": "Form with validation",
+  "input-fields": "Input fields",
+  "text-field": "Text field",
+  "numeric-field-max": "Numeric field (min 18/max 50)",
+  "numeric-field-5": "Numeric field (5 digits)",
+  "email-field": "Email field",
+  "scholastic-institute": "Scholastic Institute",
+  "search-text": "Search text",
+  "isolated-checkbox": "Isolated checkbox",
+  "isolated-toggle": "Toggle isolated",
+  "message-dependency-checkbox": "Whether Checkbox 2 is required depends on the value of Checkbox 1"
+}

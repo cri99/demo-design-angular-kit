@@ -1,0 +1,19 @@
+{
+  "validation-form": "Form con validazione",
+  "input-fields": "Campi input",
+  "text-field": "Campo testo",
+  "numeric-field-max": "Campo numerico (min 18/max 50)",
+  "numeric-field-5": "Campo numerico (5 cifre)",
+  "email-field": "Campo email",
+  "scholastic-institute": "Istituto scolastico",
+  "search-text": "Testo da cercare",
+  "isolated-checkbox": "Checkbox isolata",
+  "isolated-toggle": "Toggle isolato",
+  "message-dependency-checkbox": "L'obbligatorietà di Checkbox 2 dipende dal valore di Checkbox 1",
+
+  "it": {
+    "general": {
+      "send": "Invia modulo"
+    }
+  }
+}

@@ -1,47 +1,136 @@
-<div class="container">
-    <h2>Reactive driven form</h2>
+<div class="container mb-5 mt-5 pt-5">
+  <form [formGroup]="reactiveFormGroup" (submit)="onSubmit()">
 
-    <form [formGroup]="reactiveFormGroup" (submit)="onSubmit()" class = "student-form">
+    <div class="d-flex justify-content-between px-0">
+      <h1>{{'validation-form' | translate}}</h1>
+      <it-language-switcher></it-language-switcher>
+    </div>
+    <hr>
+
+    <div class="container-fluid px-0 mt-5 mb-4">
+      <h2>{{'input-fields' | translate}}</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <it-input id="name" formControlName="name" [label]="'text-field'|translate">
+          <it-icon name="pencil" size="sm" prependText></it-icon>
+        </it-input>
+      </div>
+      <div class="col-12 col-md-4">
+        <it-input id="age" type="number" formControlName="age"
+                  [label]="'numeric-field-max'|translate" [min]="18" [max]="50" [step]="1"></it-input>
+      </div>
+      <div class="col-12 col-md-4">
+        <it-input id="numeric-field" type="number" formControlName="numericField"
+                  [label]="'numeric-field-5'|translate"></it-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <it-input id="email" type="email" formControlName="email" [label]="'email-field'|translate">
+          <it-icon name="mail-open" size="sm" appendText></it-icon>
+        </it-input>
+      </div>
+      <div class="col-12 col-md-4">
+        <it-select id="default-select" formControlName="defaultSelect"
+                   label="Select" [options]="defaultSelectOptions"></it-select>
+      </div>
+      <div class="col-12 col-md-4">
+        <it-input id="date" type="date" formControlName="date" label="Datepicker"></it-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <it-input id="time" type="time" formControlName="time" label="Timepicker"></it-input>
+      </div>
+    </div>
+
+    <div class="container-fluid px-0 mb-4">
+      <h2>Autocomplete</h2>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12 col-md-4 pt-3">
+        <it-input id="autocomplete" type="search" formControlName="school"
+                  [label]="'scholastic-institute'|translate"
+                  [placeholder]="'search-text' | translate"
+                  [autoCompleteData]="autoCompleteSchoolsData"></it-input>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2>Checkbox / Radio</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-4">
         <div class="row">
-            <div class="col-6">
-                <it-input formControlName="fullname" placeholder="Mario Rossi..." icon="it-user" label="Nome completo"></it-input>
-            </div>
-            <div class="col-6">
-                <it-input type="email" formControlName="email" label="E-mail"></it-input> 
-            </div>
+          <it-checkbox id="checkbox-1" [label]="'isolated-checkbox'|translate" formControlName="isolatedCheckbox"></it-checkbox>
         </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <it-checkbox id="toggle-1" [label]="'isolated-toggle'|translate" formControlName="isolatedToggle" toggle="true"></it-checkbox>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="col-6">
-                    <h5>Sesso</h5>
-                    <it-radio-group formControlName="gender">
-                        <it-radio-button id="genderM" value="M" label="Maschio"></it-radio-button>
-                        <it-radio-button id="genderF" value="F" label="Femmina"></it-radio-button>
-                    </it-radio-group>
-            </div>
-            <div class="col-6">
-                <it-input type="search" formControlName="school" label="Scuola" [autoCompleteData]="autoCompleteSchoolsData"></it-input>
-                <it-input type="number" formControlName="age" label="Età"></it-input>
-            </div>
-        </div>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <fieldset id="radiogroup">
+          <legend>Fieldset radio buttons</legend>
+          <it-radio-button id="radio-1" label="Radio 1" value="radio1"
+                           formControlName="group2" inline="true"></it-radio-button>
+          <it-radio-button id="radio-2" label="Radio 2" value="radio2"
+                           formControlName="group2" inline="true"></it-radio-button>
+        </fieldset>
+      </div>
+      <div class="col-12 col-md-4">
+        <fieldset id="checkgroup">
+          <legend>Fieldset checkbox</legend>
+          <it-checkbox id="checkbox-2" label="Checkbox 1" formControlName="checkbox1" inline="true"></it-checkbox>
 
+          <!-- With `validationMode` as `true` show the validation is invalid but also valid (green) -->
+          <it-checkbox id="checkbox-3" label="Checkbox 2" formControlName="checkbox2" inline="true" validationMode="true"></it-checkbox>
+          <div>
+            <small class="text-muted">{{'message-dependency-checkbox'|translate}}</small>
+          </div>
+        </fieldset>
+      </div>
+    </div>
 
-        
-        <div class="row">
-            <it-input type="password" formControlName="password" label="Password" [enablePasswordStrengthMeter]="true"></it-input>
-            <it-input type="password" formControlName="confirmPassword" label="Conferma password"></it-input>
-        </div>
+    <div class="container-fluid px-0 mb-4">
+      <h2>File</h2>
+    </div>
 
-        <div class="row">
-            <it-checkbox formControlName="acceptPrivacyPolicy" label="Accetto la privacy policy"></it-checkbox>
-        </div>
+    <div class="row mb-5">
+      <div class="col-12 col-md-6">
+        <it-upload-drag-drop id="drag-drop-upload" (fileStartUpload)="onDragUploadStart($event)"
+                             #uploadDragDropComponent></it-upload-drag-drop>
+      </div>
+      <div class="col-12 col-md-6">
+        <it-upload-file-list id="file-upload" [fileList]="uploadedFileList"
+                             (uploadFiles)="onUpdateFileList($event)"
+                             (deleteItem)="onDeleteFileList($event)"></it-upload-file-list>
+      </div>
+    </div>
 
-        <div class="row mt-4">
-            <button itButton type="submit" [disabled]="reactiveFormGroup.invalid">INVIA</button>
-        </div>
-    </form>
+    <div class="container-fluid px-0">
+      <button itButton="primary" class="mt-3" type="submit" [progress]="isLoadingSend" [disabled]="isLoadingSend">
+        <it-icon [name]="reactiveFormGroup.invalid ? 'ban' : 'check-circle'" size="sm" color="white"></it-icon>
 
+        <!-- You can use the locations of the library and customize in your location files -->
+        <!-- Customized in the Italian language, default for the English language -->
+        {{'it.general.send' | translate}}
+      </button>
+    </div>
+
+  </form>
 </div>
+
 
 <pre>
     {{reactiveFormGroup.value | json}}
